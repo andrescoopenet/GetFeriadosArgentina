@@ -25,7 +25,7 @@ func findString(arreglo []string, cadena string) int {
 }
 
 func getFeriados(anio string) {
-	// make GET request to API to get user by ID
+	// Descarga la web mediante un GET request
 	apiUrl := fmt.Sprintf("https://www.argentina.gob.ar/interior/feriados-nacionales-%s", anio)
 	request, error := http.NewRequest("GET", apiUrl, nil)
 
@@ -44,7 +44,7 @@ func getFeriados(anio string) {
 
 	responseBody, error := io.ReadAll(response.Body)
 
-	// clean up memory after execution
+	// Libera la memoria
 	defer response.Body.Close()
 
 	if error != nil {
@@ -114,6 +114,6 @@ func archivos(val string) {
 }
 
 func main() {
-	fmt.Println("OBteniendo Feriados...")
+	fmt.Println("Obteniendo Feriados...")
 	getFeriados(os.Args[1])
 }
