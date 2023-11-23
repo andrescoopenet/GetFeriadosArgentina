@@ -24,7 +24,7 @@ func findString(arreglo []string, cadena string) int {
 	return 0
 }
 
-func getFeriados(anio string) {
+func getFeriados(anio string) []Feriados {
 	// Descarga la web mediante un GET request
 	apiUrl := fmt.Sprintf("https://www.argentina.gob.ar/interior/feriados-nacionales-%s", anio)
 	request, error := http.NewRequest("GET", apiUrl, nil)
@@ -74,25 +74,25 @@ func getFeriados(anio string) {
 			type_pos := findString(array_fecha, "\"type\":")
 			if type_pos >= 4 {
 				Detalle = strings.TrimLeft(strings.TrimRight(strings.Join(array_fecha[4:type_pos], " "), "\","), "\"")
-				struct_feriados = Feriados{
-					Fecha:   Fecha,
-					Detalle: Detalle,
+
+				if !((strings.Contains(Detalle, "(b)")) || (strings.Contains(Detalle, "(c)"))) { // Si no es un feriado festivo se descarta
+					struct_feriados = Feriados{
+						Fecha:   Fecha,
+						Detalle: Detalle,
+					}
+					array_of_struct = append(array_of_struct, struct_feriados)
+					data = append(data, struct_feriados)
 				}
-				array_of_struct = append(array_of_struct, struct_feriados)
-				data = append(data, struct_feriados)
 			}
 			Detalle = ""
 			Fecha = ""
 		}
 	}
 
-	for i := 0; i < len(array_of_struct); i++ {
-		fmt.Printf("Fecha: %v \n", array_of_struct[i].Fecha)
-		fmt.Printf("Detalle: %v \n", array_of_struct[i].Detalle)
-	}
-
 	file, _ := json.MarshalIndent(data, "", " ")
 	_ = os.WriteFile("feriados.json", file, 0644)
+
+	return (array_of_struct)
 
 }
 
@@ -115,5 +115,9 @@ func archivos(val string) {
 
 func main() {
 	fmt.Println("Obteniendo Feriados...")
-	getFeriados(os.Args[1])
+	feriados := getFeriados(os.Args[1])
+	for i := 0; i < len(feriados); i++ {
+		fmt.Printf("Fecha: %v \n", feriados[i].Fecha)
+		fmt.Printf("Detalle: %v \n", feriados[i].Detalle)
+	}
 }
