@@ -75,7 +75,7 @@ func getFeriados(anio string) []Feriados {
 			if type_pos >= 4 {
 				Detalle = strings.TrimLeft(strings.TrimRight(strings.Join(array_fecha[4:type_pos], " "), "\","), "\"")
 
-				if !((strings.Contains(Detalle, "(b)")) || (strings.Contains(Detalle, "(c)"))) { // Si no es un feriado festivo se descarta
+				if !((strings.Contains(Detalle, "(a)")) || (strings.Contains(Detalle, "(b)")) || (strings.Contains(Detalle, "(c)"))) { // Si no es un feriado festivo se descarta
 					struct_feriados = Feriados{
 						Fecha:   Fecha,
 						Detalle: Detalle,
