@@ -12,6 +12,6 @@ Asegúrate de tener Go instalado en tu sistema antes de ejecutar el código. Si 
 1. Descarga el código fuente o clónalo desde este repositorio.
 2. Abre una terminal y navega hasta el directorio donde se encuentra el código.
 3. Ejecuta el programa proporcionando el año del que deseas obtener los feriados como argumento. 
-4. El programa realizará la solicitud HTTP, analizará los datos y generará un archivo JSON llamado "feriados.json" que contiene la información de los feriados. También guardará una copia de la página web en formato HTML como "filedump.html".
+4. El programa realizará la solicitud HTTP, analizará los datos, generará un archivo JSON llamado "feriados.json" que contiene la información de los feriados y otro llamado "feriados.txt" el cual contiene solo las fechas. También guardará una copia de la página web en formato HTML como "filedump.html".
 
 
