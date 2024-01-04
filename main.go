@@ -62,7 +62,16 @@ func getFeriados(anio string) []Feriados {
 	var Detalle string
 	var data []Feriados
 
+	file_fecha, err := os.Create("feriados.txt")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer file_fecha.Close()
+
 	for i := 0; i < len(splitted); i++ {
+
 		boolDate := strings.Contains(splitted[i], "\"date\":")
 		boolLabel := strings.Contains(splitted[i], "\"label\":")
 
@@ -75,13 +84,19 @@ func getFeriados(anio string) []Feriados {
 			if type_pos >= 4 {
 				Detalle = strings.TrimLeft(strings.TrimRight(strings.Join(array_fecha[4:type_pos], " "), "\","), "\"")
 
-				if !((strings.Contains(Detalle, "(a)")) || (strings.Contains(Detalle, "(b)")) || (strings.Contains(Detalle, "(c)"))) { // Si no es un feriado festivo se descarta
+				// Si no es un feriado festivo se descarta
+				if !((strings.Contains(Detalle, "(a)")) || (strings.Contains(Detalle, "(b)")) || (strings.Contains(Detalle, "(c)"))) {
 					struct_feriados = Feriados{
 						Fecha:   Fecha,
 						Detalle: Detalle,
 					}
 					array_of_struct = append(array_of_struct, struct_feriados)
 					data = append(data, struct_feriados)
+
+					_, err := file_fecha.WriteString(Fecha + "\n")
+					if err != nil {
+						log.Fatal(err)
+					}
 				}
 			}
 			Detalle = ""
