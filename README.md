@@ -1,6 +1,6 @@
 # ReadMe - Obtener Feriados de Argentina
 
-Este script desarrollado en Go, obtiene los feriados festivos nacionales de Argentina de un año específico desde el sitio web oficial del gobierno (https://www.argentina.gob.ar/interior/). El código realiza una solicitud HTTP a la URL del siti, luego extrae y almacena los datos en un archivo JSON.
+Este script desarrollado en Go, obtiene los feriados festivos nacionales de Argentina de un año específico desde el sitio web oficial del gobierno (https://www.argentina.gob.ar/interior/). El código realiza una solicitud HTTP a la URL del sitio, luego extrae y almacena los datos en un archivo JSON.
 
 ## Uso
 
